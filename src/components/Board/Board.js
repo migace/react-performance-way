@@ -1,33 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Row } from './components/Row';
 import { Wrapper } from './styles';
 
-export const Board = ({ size }) => {
-  const initialBoard = new Array(size).fill(new Array(size).fill(undefined));
+export const Board = ({ initialBoard }) => {  
   const [board, setBoard] = useState(initialBoard);
 
-  const setContent = (rowI, cellI, content) => {
-    setBoard([
-      ...board.slice(0, rowI),
+  const setContent = useCallback((rowI, cellI, content) =>
+    setBoard((oldBoard) => [
+      ...oldBoard.slice(0, rowI),
       [
-        ...board[rowI].slice(0, cellI),
+        ...oldBoard[rowI].slice(0, cellI),
         content,
-        ...board[rowI].slice(cellI + 1)
+        ...oldBoard[rowI].slice(cellI + 1)
       ],
-      ...board.slice(rowI + 1),
-    ]);
-  };
+      ...oldBoard.slice(rowI + 1),
+    ]), []);
 
   return (
     <Wrapper>
       {
-        board.map((row, rowI) => <Row data={row} setContent={setContent} rowI={rowI} />)
+        board.map((row, rowI) => <Row key={rowI} data={row} setContent={setContent} rowI={rowI} />)
       }
     </Wrapper>
   )
 };
 
 Board.propTypes = {
-  size: PropTypes.number.isRequired,
+  initialBoard: PropTypes.array.isRequired,
 };

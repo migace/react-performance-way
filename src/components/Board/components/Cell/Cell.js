@@ -1,16 +1,16 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { Item } from './styles';
 
-export const Cell = ({ content, setContent, coordinates }) => {
-  const randomItem = () => Math.random() > 0.5 ? 'x' : '0';
+const randomItem = () => Math.random() > 0.5 ? 'x' : '0';
 
+export const Cell = memo(({ content, setContent, rowI, cellI }) => {  
   return (
-    <Item onClick={() => setContent(coordinates.rowI, coordinates.cellI, randomItem())}>
+    <Item onClick={() => setContent(rowI, cellI, randomItem())}>
       { content }
     </Item>
   );
-}
+});
 
 Cell.propTypes = {  
   coordinates: PropTypes.shape({
