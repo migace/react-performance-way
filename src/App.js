@@ -1,24 +1,36 @@
 import React from 'react';
-import logo from './logo.svg';
+import { Game } from 'views/Game';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <nav className="navbar is-dark" role="navigation" aria-label="main navigation">
+        <div className="navbar-brand">
+          <a className="navbar-item" href="/">
+            React performance
+          </a>
+
+          <a role="button" className="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+
+        <div id="navbarBasicExample" className="navbar-menu">
+          <div className="navbar-end">
+            <a className="navbar-item">
+              Home
+            </a>            
+          </div>
+        </div>
+      </nav>
+      <section className="section">
+        <div className="container">
+          <Game />
+        </div>
+      </section>
     </div>
   );
 }
