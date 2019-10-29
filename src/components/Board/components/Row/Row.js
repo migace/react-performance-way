@@ -22,5 +22,4 @@ export const Row = memo(({ data, setContent, rowI }) => (
 Row.propTypes = {
   data: PropTypes.array.isRequired,
   rowI: PropTypes.number.isRequired,
-  setContent: PropTypes.func.isRequired,
 };

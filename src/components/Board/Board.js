@@ -1,31 +1,25 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, createContext } from 'react';
 import PropTypes from 'prop-types';
+import { Field } from 'classes/Field';
 import { Row } from './components/Row';
 import { Wrapper } from './styles';
 
-export const Board = ({ initialBoard }) => {  
-  const [board, setBoard] = useState(initialBoard);
+export const BoardContext = createContext()
 
-  const setContent = useCallback((rowI, cellI, content) =>
-    setBoard((oldBoard) => [
-      ...oldBoard.slice(0, rowI),
-      [
-        ...oldBoard[rowI].slice(0, cellI),
-        content,
-        ...oldBoard[rowI].slice(cellI + 1)
-      ],
-      ...oldBoard.slice(rowI + 1),
-    ]), []);
+export const Board = ({ size }) => {
+  const [field] = useState(() => new Field(size));
 
   return (
-    <Wrapper>
-      {
-        board.map((row, rowI) => <Row key={rowI} data={row} setContent={setContent} rowI={rowI} />)
-      }
-    </Wrapper>
+    <BoardContext.Provider value={field}>
+      <Wrapper>
+        {
+          field.map((row, rowI) => <Row key={rowI} data={row} rowI={rowI} />)
+        }
+      </Wrapper>
+    </BoardContext.Provider>
   )
 };
 
 Board.propTypes = {
-  initialBoard: PropTypes.array.isRequired,
+  size: PropTypes.number.isRequired,
 };
